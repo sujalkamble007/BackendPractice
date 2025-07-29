@@ -1,0 +1,3 @@
+The empty file to keep the track of the folder structure 
+bcz git only keep the track of the file not folder
+    -> instead to do so the .gitkeep file is created 
