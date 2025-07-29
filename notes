@@ -1,1 +1,2 @@
 npm i -D nodemon. --> to download the nodemon package 
+npm i -D prettier. --> used to resolve conflicts while mergering and pushing on github
