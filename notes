@@ -2,3 +2,7 @@ npm i -D nodemon. --> to download the nodemon package
 npm i -D prettier. --> used to resolve conflicts while mergering and pushing on github
 npm i mongoose
 npm i express dotenv
+
+npm install cookie-parser. --> help to used cookies for the authentication
+npm i cros --> help to solve the problem of crss origin
+
