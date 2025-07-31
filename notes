@@ -1,8 +1,46 @@
 npm i -D nodemon. --> to download the nodemon package 
 npm i -D prettier. --> used to resolve conflicts while mergering and pushing on github
+        >>have to create two files 
+                1. .prettierrc --> for specifiying the things
+                2. .prettierignore --> for file which need to be ignore
+
 npm i mongoose
 npm i express dotenv
 
 npm install cookie-parser. --> help to used cookies for the authentication
 npm i cros --> help to solve the problem of crss origin
+
+for every project we have to create five middleware 
+        1.app.use(cros())
+        2.app.use(urlencoded)
+        3.app.use(express.json())
+        4.app.use(express.static("fileName"))
+        5.app.use(cookieParser())
+
+npm install mongoose-aggregate-paginate-v2 --> used to write the aggregration query of mongoDb
+        >>>>import mongooseAggregatePaginate from 'mongoose-aggregate-paginate-v2';
+        >>  videoSchema.plugin(mongooseAggregatePaginate);    
+
+.gitignore generator --> Create useful .gitignore files for your project
+
+npm i bcrypt --> helps you to hash your password 
+
+npm install jsonwebtoken --> used to genarate and used tokens 
+        ->>jwt.io
+        has three parts 
+                1.Header
+                2.Payload
+                3.Signature
+
+before hashing the password we have to set some middleware 
+        1.prehook --> used to hash the password before saving it in the database
+        2.posthook --> used to do some action after saving the data in the database
+
+we can do it while 
+        1.saving the data
+        2.updating the data
+        3.deleting the data             
+        4.Validating the data
+
+
 
