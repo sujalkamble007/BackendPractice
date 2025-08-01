@@ -1,12 +1,11 @@
-import { useReducer } from "react";
-import mongoose from mongoose
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 const UserSchema = new mongoose.Schema(
 {
      username : {
-        type: string ,
+        type: String,
         required: true,
         unique : true,
         lowercase: true,
@@ -21,10 +20,9 @@ const UserSchema = new mongoose.Schema(
         trim : true,
     },
     fullName : {
-        type : string,
+        type : String,
         required: true,
         unique: true,
-        //lowercase: true,
         trim : true,
         index : true,
     },
@@ -34,59 +32,60 @@ const UserSchema = new mongoose.Schema(
         minlength: 6
     },
     avatar : {
-        type : string , //claudinary url
+        type : String,
         required: true,
-
     },
     coverImage : {
-        type : string , //claudinary url
-        required: true, 
+        type : String,
+        required: false, // Fixed: Set to false since cover image is optional
     },
-    watchHistory : [[{
+    watchHistory : [{
         type : mongoose.Schema.Types.ObjectId,
         ref : "Video",
-    }]],
+    }],
     refreshToken : {
-        type : string ,
+        type : String,
     },
 },{timestamps: true});
 
 //pre hook before saving the data 
 UserSchema.pre("save" , async function(next){
-    //checks update only if the password flied is modified 
-    if(!this.isModified("password")) return next(),
+    //checks update only if the password field is modified 
+    if(!this.isModified("password")) return next();
 
-    this.password= bcrypt.hash(this.password , 11),
-    next()
+    this.password = await bcrypt.hash(this.password, 11);
+    next();
 })
 
 UserSchema.methods.isPasswordCorrect = async function(password){
-      return await  bcrypt.compare(password , this.password)
+    return await bcrypt.compare(password, this.password);
 }
 
 UserSchema.methods.generateAccessToken = function(){
-     return jwt.sign(
+    return jwt.sign(
         {
             _id : this._id,
             email : this.email,
             username : this.username,
             fullName : this.fullName,
-
-
-    } ,process.env.ACCESS_TOKEN_SECRET , 
-    {
-        expiresIn : process.env.ACCESS_TOKEN_EXPIRY
-    })
+        }, 
+        process.env.ACCESS_TOKEN_SECRET, 
+        {
+            expiresIn : process.env.ACCESS_TOKEN_EXPIRY
+        }
+    );
 }
 
-UserSchema.methods.generateRefreshtoken = function(){
-   return jwt.sign({
-        _id : this._id,
-        
-    } , process.env.REFRESH_TOKEN_SECRET , 
-    {
-        expiresIn : process.env.REFRESH_TOKEN_EXPIRY
-    })
+UserSchema.methods.generateRefreshToken = function(){ // Fixed: Method name typo
+   return jwt.sign(
+        {
+            _id : this._id,
+        }, 
+        process.env.REFRESH_TOKEN_SECRET, 
+        {
+            expiresIn : process.env.REFRESH_TOKEN_EXPIRY
+        }
+    );
 }
 
-export const User = mongoose.model("User",UserSchema);
+export const User = mongoose.model("User", UserSchema);

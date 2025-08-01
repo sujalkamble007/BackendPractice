@@ -52,4 +52,4 @@ upload files using multer
 npm i cloudinary --> Cloudinary is a cloud-based service that provides an end-to-end image and video management solution, including upload, storage, manipulation, optimization, and delivery.
 npm i multer --> Multer is a middleware for handling multipart/form-data, which is primarily used for uploading files.
 
-fs.unlinkSync(localFilePath); 
+fs.unlinkSync(localFilePath); --> The fs.unlinkSync() method is used to delete a file from the filesystem synchronously. It takes the path of the file as an argument
