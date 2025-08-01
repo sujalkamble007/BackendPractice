@@ -17,22 +17,24 @@ import cookieParser from 'cookie-parser';
 import {Limit} from './constants.js';
 const app = express();
 
-
+//writes all routes in the console
+//middleware
 app.use(cors({
-    origin : process.env.CROS_ORIGIN || '*',
+    origin : process.env.CORS_ORIGIN || '*',
     Credential: true
-
 }))
 
-app.use(express.json({
-    limit : Limit
-}))
-
+app.use(express.json({limit : Limit}))
 app.use(urlencoded({extended: true , limit : Limit}))
-
 app.use(express.static("public"))
-
 app.use(cookieParser())
 
 
-export  { app }  ;    
+// Importing routes
+import userRoutes  from './routes/user.routes.js';   
+
+
+//routes declaration
+app.use('/api/v1/users', userRoutes);      //url would be  https://localhost:5000/api/v1/users/register   
+
+export  {app}  ;    
